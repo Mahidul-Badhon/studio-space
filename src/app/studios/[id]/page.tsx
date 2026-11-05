@@ -9,6 +9,7 @@ import {
   ArrowLeft 
 } from 'lucide-react';
 import StudioGalleryCarousel from '@/components/StudioGalleryCarousel';
+import BookingCard from '@/components/booking/BookingCard';
 
 
 const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
@@ -197,45 +198,7 @@ const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
                     </div>
 
                     {/* Right Column: Pricing & Booking Action Card */}
-                    <div className="lg:col-span-4">
-                        <div className="sticky top-28 p-6 rounded-2xl bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 shadow-md space-y-5">
-                            <div className="flex items-baseline justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
-                                <div>
-                                    <span className="text-3xl font-black text-zinc-900 dark:text-white">
-                                        ${studio.hourlyRate}
-                                    </span>
-                                    <span className="text-xs text-zinc-500 dark:text-zinc-400 ml-1 font-medium">
-                                        / hour
-                                    </span>
-                                </div>
-                                <span className="text-xs px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-semibold">
-                                    Instant Booking
-                                </span>
-                            </div>
-
-                            <div className="space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
-                                <div className="flex justify-between">
-                                    <span>Security Deposit</span>
-                                    <span className="font-semibold text-zinc-900 dark:text-zinc-200">${studio.securityDeposit || 0}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Liability Protection</span>
-                                    <span className="font-semibold text-emerald-600 dark:text-emerald-400">Included free</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Cancellation Policy</span>
-                                    <span className="font-semibold text-zinc-900 dark:text-zinc-200">Flexible (24h)</span>
-                                </div>
-                            </div>
-
-                            <button
-                                type="button"
-                                className="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-md shadow-indigo-600/20 transition-all"
-                            >
-                                Book Workspace Now
-                            </button>
-                        </div>
-                    </div>
+                    <BookingCard studio={studio}></BookingCard>
 
                 </div>
 
