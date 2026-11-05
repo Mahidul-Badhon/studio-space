@@ -23,6 +23,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* The CSS keys off a `.dark` class, so next-themes must write the class. */}
+        
+        
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           {children}
