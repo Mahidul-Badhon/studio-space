@@ -13,28 +13,15 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   // Form submission handler
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
 
-    if (password.length < 6) {
-      toast.add({type: "error", description:"password is too short! Try again"});
-      return;
-    }
-    if (!/[A-Z]/.test(password)) {
-      toast.add({type: "error", description:"password is not accepted! Try again"});
-      return;
-    }
-    if (!/[a-z]/.test(password)) {
-      toast.add({type: "error", description:"password is not accepted! Try again"});
-      return;
-    }
-
     // console.log({ name, email, photoURL, password });
-    const {data, error} = await authClient.signUp.email({
+    const {data, error} = await authClient.signIn.email({
          email, password
     })
 
@@ -113,7 +100,7 @@ const SignInPage = () => {
           </div>
 
           {/* Input Fields */}
-          <form onSubmit={handleRegister} className="space-y-4">
+          <form onSubmit={handleSignIn} className="space-y-4">
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
@@ -164,7 +151,7 @@ const SignInPage = () => {
 
           {/* Bottom Redirect */}
           <div className="text-center text-xs text-zinc-600 dark:text-zinc-400 pt-1">
-            Don`t have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/signup"
               className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"

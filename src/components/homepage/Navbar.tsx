@@ -5,9 +5,21 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils" // Ensure standard shadcn path
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 import Logo from "@/assets/Logo.png"
 import { ModeToggle } from "@/components/ModeToggle"
+import { authClient } from "@/lib/auth-client"
+import { Button } from "../ui/button"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -31,7 +43,17 @@ export function Navbar() {
   // On inner pages or when scrolled, apply theme-aware solid/blurred backgrounds.
   const isTransparent = isHome && !scrolled
 
+  const { data: session } = authClient.useSession()
+  const user = session?.user
+  console.log(user)
+  const handleSignOut = () => {
+    authClient.signOut()
+  }
+
   return (
+
+
+
     <header
       className={cn(
         "sticky top-0 z-50 h-16 w-full transition-all duration-300 md:h-20",
@@ -76,11 +98,11 @@ export function Navbar() {
                     ? "text-white/80 hover:text-white"
                     : "text-zinc-600 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white",
                   isActive &&
-                    (isTransparent
-                      ? "text-white after:bg-indigo-400"
-                      : "text-indigo-600 dark:text-indigo-400 after:bg-indigo-600 dark:after:bg-indigo-400"),
+                  (isTransparent
+                    ? "text-white after:bg-indigo-400"
+                    : "text-indigo-600 dark:text-indigo-400 after:bg-indigo-600 dark:after:bg-indigo-400"),
                   isActive &&
-                    "after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full"
+                  "after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full"
                 )}
               >
                 {link.label}
@@ -92,25 +114,50 @@ export function Navbar() {
         {/* Actions */}
         <div className="flex items-center gap-3 md:gap-4">
           <ModeToggle />
-          
-          <Link
-            href="/login"
-            className={cn(
-              "hidden h-9 items-center rounded-lg px-4 text-sm font-medium transition-colors sm:inline-flex md:px-5 border",
-              isTransparent
-                ? "bg-white/10 hover:bg-white/20 text-white border-white/20"
-                : "bg-zinc-100 hover:bg-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800"
-            )}
-          >
-            Login
-          </Link>
 
-          <Link
-            href="/register"
-            className="inline-flex h-9 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white transition-colors hover:bg-indigo-500 shadow-sm md:px-5"
-          >
-            Register
-          </Link>
+
+          {
+            user ? <Popover>
+              <PopoverTrigger render={<Avatar>
+                <AvatarImage referrerPolicy="no-referrer" src={user?.image as string} />
+                <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+              </Avatar>}>
+                Open Popover
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverHeader>
+                  <PopoverTitle>{user?.name}</PopoverTitle>
+                  <PopoverDescription>
+                    <p>{user?.email}</p>
+                    <Button onClick={handleSignOut} variant={'destructive'}>Sign Out</Button>
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover> : <>
+              <Link
+                href="/signIn"
+                className={cn(
+                  "hidden h-9 items-center rounded-lg px-4 text-sm font-medium transition-colors sm:inline-flex md:px-5 border",
+                  isTransparent
+                    ? "bg-white/10 hover:bg-white/20 text-white border-white/20"
+                    : "bg-zinc-100 hover:bg-zinc-200 text-zinc-900 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:text-zinc-100 border-zinc-200 dark:border-zinc-800"
+                )}
+              >
+                Login
+              </Link>
+
+              <Link
+                href="/signup"
+                className="inline-flex h-9 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white transition-colors hover:bg-indigo-500 shadow-sm md:px-5"
+              >
+                Register
+              </Link>
+            </>
+          }
+
+
+
+
         </div>
       </div>
     </header>
