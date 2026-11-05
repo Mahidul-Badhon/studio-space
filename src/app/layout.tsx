@@ -3,6 +3,8 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/homepage/Navbar";
+import { Bounce, ToastContainer } from "react-toastify";
+import { Toaster } from "@/components/ui/toast";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -23,15 +25,32 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* The CSS keys off a `.dark` class, so next-themes must write the class. */}
-        
-        
+
+
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          {children}
+          <main>
+            {children}
+          </main>
+
+          {/* <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+          /> */}
+          <Toaster />
         </ThemeProvider>
-        
-        
-        </body>
+
+
+      </body>
     </html>
   );
 }

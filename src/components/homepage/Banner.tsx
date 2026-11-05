@@ -2,6 +2,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 import HeroBanner from "@/assets/Hero_banner.png"
+import Link from "next/link"
 
 export function Banner() {
   return (
@@ -34,13 +35,13 @@ export function Banner() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3 md:gap-4">
-            <a
+            <Link
               href="/studios"
               className="inline-flex h-11 items-center gap-2 rounded-lg bg-indigo-500 px-6 text-sm font-semibold text-white transition-colors hover:bg-indigo-600"
             >
               Explore Studios
               <ArrowRight className="size-4" />
-            </a>
+            </Link>
             <a
               href="#"
               className="inline-flex h-11 items-center rounded-lg border border-white/40 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"
