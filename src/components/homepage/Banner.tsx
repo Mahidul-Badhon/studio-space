@@ -35,7 +35,7 @@ export function Banner() {
 
           <div className="mt-8 flex flex-wrap gap-3 md:gap-4">
             <a
-              href="#"
+              href="/studios"
               className="inline-flex h-11 items-center gap-2 rounded-lg bg-indigo-500 px-6 text-sm font-semibold text-white transition-colors hover:bg-indigo-600"
             >
               Explore Studios
