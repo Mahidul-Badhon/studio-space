@@ -1,22 +1,22 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { 
   MapPin, 
-  Users, 
   ShieldCheck, 
   Sparkles, 
   Star, 
   CheckCircle, 
   ArrowLeft 
 } from 'lucide-react';
+import StudioGalleryCarousel from '@/components/StudioGalleryCarousel';
+
 
 const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
     const {id} = await params;
     
+
         const res = await fetch(`http://localhost:8000/studios/${id}`)
-        
-        const studio = await res.json();
+            const studio = await res.json(); 
 
     if (!studio) {
         return (
@@ -32,6 +32,13 @@ const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
             </div>
         );
     }
+
+    // Resolve images list: check studio.images array, fallback to single studio.imageUrl
+    const studioImages: string[] = studio.images && studio.images.length > 0
+        ? studio.images
+        : studio.imageUrl
+        ? [studio.imageUrl]
+        : [];
 
     return (
         <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors py-10 px-4 sm:px-6 lg:px-12">
@@ -77,16 +84,8 @@ const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
                     </div>
                 </div>
 
-                {/* Studio Photo Showcase */}
-                <div className="relative aspect-[16/9] md:aspect-[21/9] w-full rounded-3xl overflow-hidden bg-zinc-200 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800">
-                    <Image
-                        src={studio.imageUrl}
-                        alt={studio.title}
-                        fill
-                        priority
-                        className="object-cover"
-                    />
-                </div>
+                {/* Gallery Carousel (Replaces single static image) */}
+                <StudioGalleryCarousel images={studioImages} title={studio.title} />
 
                 {/* Main Content & Right-Side Booking Card */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
