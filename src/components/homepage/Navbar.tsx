@@ -134,6 +134,9 @@ export function Navbar() {
                     <Link href={'/add-studio'} className="block">
                     Add Studio
                     </Link>
+                    <Link href={'/myStudios'} className="block">
+                    My Studios
+                    </Link>
                     <Button onClick={handleSignOut} variant={'destructive'}>Sign Out</Button>
                   </PopoverDescription>
                 </PopoverHeader>
