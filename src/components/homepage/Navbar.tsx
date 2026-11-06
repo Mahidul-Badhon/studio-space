@@ -128,6 +128,12 @@ export function Navbar() {
                   <PopoverTitle>{user?.name}</PopoverTitle>
                   <PopoverDescription>
                     <p>{user?.email}</p>
+                    <Link href={'/myBookings'} className="block">
+                    My bookings
+                    </Link>
+                    <Link href={'/add-studio'} className="block">
+                    Add Studio
+                    </Link>
                     <Button onClick={handleSignOut} variant={'destructive'}>Sign Out</Button>
                   </PopoverDescription>
                 </PopoverHeader>

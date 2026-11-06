@@ -1,20 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
-import { 
-  Building2, 
-  DollarSign, 
-  Users, 
-  MapPin, 
-  UploadCloud, 
-  Sparkles, 
-  Loader2,
+import {
+  Building2,
+  DollarSign,
+  Users,
+  MapPin,
+  Sparkles,
   Check,
   Plus,
   Trash2
 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "@/components/ui/toast";
 
 
 const CATEGORIES = [
@@ -41,15 +41,14 @@ const AMENITY_OPTIONS = [
 ];
 
 const AddStudioPage = () => {
+
+  const { data: session } = authClient.useSession()
+  const user = session?.user
   const router = useRouter();
 
-  const hostUser = {
-    name: "Alex Rivera",
-    email: "alex.creative@example.com",
-  };
 
   const [loading, setLoading] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  // const [uploadingImage, setUploadingImage] = useState(false);
 
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
@@ -57,7 +56,7 @@ const AddStudioPage = () => {
   const [securityDeposit, setSecurityDeposit] = useState("");
   const [maxCapacity, setMaxCapacity] = useState("");
   const [location, setLocation] = useState("");
-  
+
   // Multiple images state
   const [images, setImages] = useState<string[]>([]);
   const [currentImageUrlInput, setCurrentImageUrlInput] = useState("");
@@ -77,7 +76,7 @@ const AddStudioPage = () => {
   const handleAddImageUrl = () => {
     if (!currentImageUrlInput.trim()) return;
     if (!currentImageUrlInput.startsWith("http://") && !currentImageUrlInput.startsWith("https://")) {
-    //   toast.error("Please enter a valid HTTP/HTTPS image URL");
+      toast.add({type: "error", description:"Provide a legit image address"});
       return;
     }
     setImages((prev) => [...prev, currentImageUrlInput.trim()]);
@@ -90,56 +89,56 @@ const AddStudioPage = () => {
   };
 
   // Upload to ImgBB and append to images array
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
 
-    const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
-    if (!apiKey) {
-    //   toast.error("ImgBB API key is missing in environment variables.");
-      return;
-    }
+  //   const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+  //   if (!apiKey) {
+  //     //   toast.error("ImgBB API key is missing in environment variables.");
+  //     return;
+  //   }
 
-    setUploadingImage(true);
-    const formData = new FormData();
-    formData.append("image", file);
+  //   setUploadingImage(true);
+  //   const formData = new FormData();
+  //   formData.append("image", file);
 
-    try {
-      const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
+  //   try {
+  //     const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+  //     const data = await res.json();
 
-      if (data.success) {
-        setImages((prev) => [...prev, data.data.url]);
-        // toast.success("Studio photo added!");
-      } else {
-        // toast.error(data.error?.message || "Failed to upload image.");
-      }
-    } catch {
-    //   toast.error("Network error while uploading image.");
-    } finally {
-      setUploadingImage(false);
-      e.target.value = ""; // Reset file input
-    }
-  };
+  //     if (data.success) {
+  //       setImages((prev) => [...prev, data.data.url]);
+  //       // toast.success("Studio photo added!");
+  //     } else {
+  //       // toast.error(data.error?.message || "Failed to upload image.");
+  //     }
+  //   } catch {
+  //     //   toast.error("Network error while uploading image.");
+  //   } finally {
+  //     setUploadingImage(false);
+  //     e.target.value = ""; // Reset file input
+  //   }
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title || !hourlyRate || !securityDeposit || !maxCapacity || !location || !overview) {
-    //   toast.error("Please fill in all mandatory fields.");
+      toast.add({type: "error", description:"Fill up all the required information"});
       return;
     }
 
     if (images.length === 0) {
-    //   toast.error("Please provide at least one studio image.");
+      toast.add({type: "error", description:"Please provide image of studio"});
       return;
     }
 
     if (selectedAmenities.length === 0) {
-    //   toast.error("Please select at least one amenity.");
+      toast.add({type: "error", description:"Select Amenities"});
       return;
     }
 
@@ -156,24 +155,24 @@ const AddStudioPage = () => {
       imageUrl: images[0], // Fallback compatibility for previous components
       amenities: selectedAmenities,
       overview,
-      ownerName: hostUser.name,
-      ownerEmail: hostUser.email,
+      ownerName: user?.name,
+      ownerEmail: user?.email,
     };
 
-      const response = await fetch("http://localhost:8000/add-studio", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(studioPayload),
-      });
+    const response = await fetch("http://localhost:8000/add-studio", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(studioPayload),
+    });
 
-      if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.message || "Failed to create studio.");
-      }
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message || "Failed to create studio.");
+    }
 
-    //   toast.success("Studio space published successfully!");
-    //   router.push("/my-listings");
-     
+    toast.add({type: "success", description:"Studio Added!"});
+    redirect('/')
+
   };
 
   return (
@@ -198,14 +197,14 @@ const AddStudioPage = () => {
           {/* Read-Only Host Information */}
           <div className="p-4 rounded-xl bg-zinc-100/70 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-700/50 space-y-1">
             <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-              Host Identity (Read-Only)
+              Host
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 text-sm text-zinc-700 dark:text-zinc-300">
               <p>
-                <span className="font-semibold text-zinc-900 dark:text-white">Name:</span> {hostUser.name}
+                <span className="font-semibold text-zinc-900 dark:text-white">Name:</span> {user?.name}
               </p>
               <p>
-                <span className="font-semibold text-zinc-900 dark:text-white">Email:</span> {hostUser.email}
+                <span className="font-semibold text-zinc-900 dark:text-white">Email:</span> {user?.email}
               </p>
             </div>
           </div>
@@ -315,7 +314,7 @@ const AddStudioPage = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <label className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-dashed border-indigo-500/60 dark:border-indigo-500/40 bg-indigo-50/50 dark:bg-indigo-950/20 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 cursor-pointer text-sm font-medium transition-colors shrink-0">
+              {/* <label className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-dashed border-indigo-500/60 dark:border-indigo-500/40 bg-indigo-50/50 dark:bg-indigo-950/20 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 cursor-pointer text-sm font-medium transition-colors shrink-0">
                 {uploadingImage ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
@@ -329,8 +328,9 @@ const AddStudioPage = () => {
                   disabled={uploadingImage}
                   className="hidden"
                 />
-              </label>
+              </label> */}
 
+              {/* image url */}
               <div className="flex-1 flex gap-2">
                 <input
                   type="url"
@@ -401,11 +401,10 @@ const AddStudioPage = () => {
                     key={amenity}
                     type="button"
                     onClick={() => handleToggleAmenity(amenity)}
-                    className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${
-                      isSelected
+                    className={`inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full border transition-all ${isSelected
                         ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
                         : "bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700/60 hover:border-zinc-400"
-                    }`}
+                      }`}
                   >
                     {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                     {amenity}
@@ -438,7 +437,7 @@ const AddStudioPage = () => {
 
             <button
               type="submit"
-              disabled={loading || uploadingImage}
+              disabled={loading}
               className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-indigo-600/20 transition-all"
             >
               {/* {loading && <Loader2 className="w-4 h-4 animate-spin" />}

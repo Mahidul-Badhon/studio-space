@@ -16,9 +16,7 @@ const MyBookingsPage = async () => {
 
   try {
     if (user?.email) {
-      const res = await fetch(`http://localhost:8000/my-bookings/${user.email}`, {
-        cache: "no-store",
-      });
+      const res = await fetch(`http://localhost:8000/my-bookings/${user.email}`)
       if (res.ok) {
         bookings = await res.json();
       }
