@@ -47,7 +47,7 @@ const steps: Step[] = [
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="relative w-full py-24 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white transition-colors duration-200 overflow-hidden border-t border-zinc-200 dark:border-zinc-800/60">
+    <section id="how-it-works" className="relative w-full py-24 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white transition-colors duration-200 overflow-hidden border-t border-zinc-200 dark:border-zinc-800/60">
       {/* Background Decorative Glow (Dark Mode only) */}
       <div
         aria-hidden="true"

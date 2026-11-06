@@ -32,7 +32,7 @@ const pillars = [
 
 const AboutUs: React.FC = () => {
   return (
-    <section className="relative w-full py-24 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white transition-colors duration-200 overflow-hidden border-t border-zinc-200 dark:border-zinc-800/60">
+    <section id="about-us" className="relative w-full py-24 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white transition-colors duration-200 overflow-hidden border-t border-zinc-200 dark:border-zinc-800/60">
       {/* Decorative Gradients */}
       <div
         aria-hidden="true"

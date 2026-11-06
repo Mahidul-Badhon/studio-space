@@ -75,14 +75,14 @@ const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
                         </p>
                     </div>
 
-                    <div className="hidden md:block">
+                    {/* <div className="hidden md:block">
                         <button
                             type="button"
                             className="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/20 transition-all hover:-translate-y-0.5"
                         >
                             Book Workspace Now
                         </button>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Gallery Carousel (Replaces single static image) */}

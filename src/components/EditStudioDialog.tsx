@@ -157,17 +157,14 @@ const EditStudioDialog = ({ studio }: EditStudioProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* asChild avoids <button><button> nesting */}
-      <DialogTrigger asChild>
-        <Button
+      <DialogTrigger
           type="button"
-          variant="outline"
-          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border-zinc-200 dark:border-zinc-700 hover:border-indigo-500 text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 transition-all"
+          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border-indigo-500 dark:border-zinc-700 hover:border-indigo-500 text-zinc-700 dark:text-zinc-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 transition-all"
           title="Edit Studio Details"
         >
           <Pencil className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Edit</span>
-        </Button>
+
       </DialogTrigger>
 
       {/* max-h and overflow-y-auto solve screen cutoff */}
