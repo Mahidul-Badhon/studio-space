@@ -25,6 +25,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { Studio } from "@/types/studio";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const CATEGORIES = [
   "Photo Studio",
@@ -138,9 +139,14 @@ const EditStudioDialog = ({ studio }: EditStudioProps) => {
       overview,
     };
 
+    const token = await getTokenFromClient()
+
       const response = await fetch(`http://localhost:8000/mystudios/${studio._id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`
+        },
         body: JSON.stringify(studioPayload),
       });
 

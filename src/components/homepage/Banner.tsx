@@ -42,12 +42,12 @@ export function Banner() {
               Explore Studios
               <ArrowRight className="size-4" />
             </Link>
-            <a
-              href="#"
+            <Link
+              href="/add-studio"
               className="inline-flex h-11 items-center rounded-lg border border-white/40 px-6 text-sm font-semibold text-white transition-colors hover:bg-white/10"
             >
               Host Your Space
-            </a>
+            </Link>
           </div>
         </div>
       </div>

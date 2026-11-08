@@ -11,28 +11,37 @@ import {
 import StudioGalleryCarousel from '@/components/StudioGalleryCarousel';
 import BookingCard from '@/components/booking/BookingCard';
 
+import { getTokenFromServer } from '@/lib/getTokenFromServer';
+import { notFound } from 'next/navigation';
+
 
 const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
     const {id} = await params;
-    
+    let studio = null
+    let isNotFound = false;
+        const token = await getTokenFromServer()
 
-        const res = await fetch(`http://localhost:8000/studios/${id}`)
-            const studio = await res.json(); 
+        try {
+             const res = await fetch(`http://localhost:8000/studios/${id}`,{
+            headers:{
+                authorization: `Bearer ${token}`
+            }
+        })
+        if(!res.ok){
+            isNotFound = true;
+        }
+        else{
+studio = await res.json(); 
+        }
+             
+        } catch (error) {
+            isNotFound = true;
+        }
+       
 
-    if (!studio) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white">
-                <h2 className="text-2xl font-bold">Studio Space Not Found</h2>
-                <p className="text-sm text-zinc-500 mt-2">The studio listing may have been unlisted or removed.</p>
-                <Link 
-                    href="/studios"
-                    className="mt-4 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition-colors"
-                >
-                    Back to Studios
-                </Link>
-            </div>
-        );
-    }
+    if (isNotFound || !studio) {
+    notFound();
+  }
 
     // Resolve images list: check studio.images array, fallback to single studio.imageUrl
     const studioImages: string[] = studio.images && studio.images.length > 0

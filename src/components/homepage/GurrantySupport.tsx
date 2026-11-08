@@ -79,15 +79,7 @@ const GurrantySupport: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Link
-              href="/trust-and-safety"
-              className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold text-zinc-700 dark:text-zinc-200 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-300 dark:border-zinc-700/80 rounded-xl transition-all"
-            >
-              Read Safety Policy
-              <ArrowUpRight className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
-            </Link>
-          </div>
+      
         </div>
 
         {/* Feature Cards Grid */}
@@ -146,7 +138,7 @@ const GurrantySupport: React.FC = () => {
             </p>
           </div>
           <Link
-            href="/host"
+            href="/add-studio"
             className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-colors shrink-0 shadow-md shadow-indigo-600/20"
           >
             Become a Host

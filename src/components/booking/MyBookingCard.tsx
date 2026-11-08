@@ -6,6 +6,7 @@ import { Calendar, Clock, DollarSign, XCircle, Building2 } from "lucide-react";
 import { Booking } from "@/types/booking";
 import { toast } from "../ui/toast";
 import { redirect } from "next/navigation";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 
 interface MyBookingCardProps {
@@ -14,9 +15,12 @@ interface MyBookingCardProps {
 
 const MyBookingCard = ({ booking }: MyBookingCardProps) => {
   const handleCancelBooking = async () => {
-    
+    const token = await getTokenFromClient()
     const res = await fetch(`http://localhost:8000/mybookings/${booking._id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers:{
+        authorization: `Bearer ${token}`
+      }
     });
     const data = await res.json()
     console.log(data)

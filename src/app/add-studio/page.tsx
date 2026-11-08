@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast";
+import { error } from "console";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 
 const CATEGORIES = [
@@ -159,9 +161,14 @@ const AddStudioPage = () => {
       ownerEmail: user?.email,
     };
 
+    const token = await getTokenFromClient()
+
     const response = await fetch("http://localhost:8000/add-studio", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`
+       },
       body: JSON.stringify(studioPayload),
     });
 

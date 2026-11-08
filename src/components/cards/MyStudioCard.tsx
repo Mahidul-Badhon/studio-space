@@ -15,6 +15,7 @@ import {
 import { toast } from "../ui/toast";
 import { Studio } from "@/types/studio";
 import EditStudioDialog from "../EditStudioDialog";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 interface MyStudioCardProps {
   studio: Studio;
@@ -26,9 +27,13 @@ const MyStudioCard = ({ studio }: MyStudioCardProps) => {
   // Handle Studio Deletion
   const handleDeleteStudio = async () => {
 
+    const token = await getTokenFromClient()
     try {
       const res = await fetch(`http://localhost:8000/mystudios/${studio._id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`
+        }
       });
 
       if (!res.ok) throw new Error("Failed to delete studio");

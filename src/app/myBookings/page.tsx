@@ -5,6 +5,7 @@ import { CalendarRange, Sparkles } from "lucide-react";
 import { auth } from "@/lib/auth";
 import MyBookingCard from "@/components/booking/MyBookingCard";
 import { Booking } from "@/types/booking";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 const MyBookingsPage = async () => {
   const session = await auth.api.getSession({
@@ -13,10 +14,14 @@ const MyBookingsPage = async () => {
   const user = session?.user;
 
   let bookings: Booking[] = [];
-
+  const token = await getTokenFromServer()
   try {
     if (user?.email) {
-      const res = await fetch(`http://localhost:8000/my-bookings/${user.email}`)
+      const res = await fetch(`http://localhost:8000/my-bookings/${user.email}`,{
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
       if (res.ok) {
         bookings = await res.json();
       }

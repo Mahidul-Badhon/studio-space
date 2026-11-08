@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { X, Calendar, Clock, DollarSign, ShieldAlert } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "../ui/toast";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 interface Studio {
     _id: string;
@@ -51,9 +52,14 @@ const BookingCard = ({ studio }: { studio: Studio }) => {
 
         console.log("Submitting booking data to database:", bookingData);
 
+        const token = await getTokenFromClient()
         const res = await fetch("http://localhost:8000/bookings", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                authorization: `Bearer ${token}`
+            
+            },
             body: JSON.stringify(bookingData),
         });
 
