@@ -12,8 +12,7 @@ StudioSpace is a full-stack creative venue booking marketplace designed for film
 
 ## 🌐 Live Preview
 
-- **Live Application URL:** [https://studiospace.vercel.app](https://studiospace.vercel.app) *(Replace with your deployed client URL)*
-- **Backend API URL:** [https://studiospace-api.onrender.com](https://studiospace-api.onrender.com) *(Replace with your deployed server URL)*
+- **Live Application URL:** [https://studio-space-smoky.vercel.app](https://studio-space-smoky.vercel.app)
 
 ---
 
