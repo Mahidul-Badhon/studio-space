@@ -127,6 +127,7 @@ BETTER_AUTH_SECRET=your_jwt_and_session_secret_min_32_characters
 BETTER_AUTH_URL=http://localhost:3000
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/studiospace?retryWrites=true&w=majority
 ```
 
 Start the Next.js development server:

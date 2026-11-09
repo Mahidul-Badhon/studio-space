@@ -3,7 +3,6 @@ import { Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/homepage/Navbar";
-import { Bounce, ToastContainer } from "react-toastify";
 import { Toaster } from "@/components/ui/toast";
 import Footer from "@/components/homepage/Footer";
 

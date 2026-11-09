@@ -1,4 +1,4 @@
-import React from "react";
+
 import Link from "next/link";
 import { Home, Compass, ArrowLeft, VideoOff } from "lucide-react";
 

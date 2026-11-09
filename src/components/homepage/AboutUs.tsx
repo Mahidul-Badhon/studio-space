@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Target, Users2, Sparkles, Building2, ArrowRight } from 'lucide-react';
+import { Target, Users2, Sparkles, ArrowRight } from 'lucide-react';
 
 const stats = [
   { value: '500+', label: 'Verified Studios' },

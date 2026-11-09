@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, UserCheck, Wrench, Headphones, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, UserCheck, Wrench, Headphones } from 'lucide-react';
 import Link from 'next/link';
 
 interface AssuranceItem {

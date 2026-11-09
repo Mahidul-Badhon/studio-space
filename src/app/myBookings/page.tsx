@@ -1,4 +1,4 @@
-import React from "react";
+
 import Link from "next/link";
 import { headers } from "next/headers";
 import { CalendarRange, Sparkles } from "lucide-react";
@@ -17,7 +17,7 @@ const MyBookingsPage = async () => {
   const token = await getTokenFromServer()
   try {
     if (user?.email) {
-      const res = await fetch(`http://localhost:8000/my-bookings/${user.email}`,{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings/${user.email}`,{
         headers: {
           authorization: `Bearer ${token}`
         }

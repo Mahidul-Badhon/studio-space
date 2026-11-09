@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -29,7 +28,7 @@ const MyStudioCard = ({ studio }: MyStudioCardProps) => {
 
     const token = await getTokenFromClient()
     try {
-      const res = await fetch(`http://localhost:8000/mystudios/${studio._id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mystudios/${studio._id}`, {
         method: "DELETE",
         headers: {
           authorization: `Bearer ${token}`

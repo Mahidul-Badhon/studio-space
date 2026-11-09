@@ -1,10 +1,8 @@
-import React from "react";
+
 import Link from "next/link";
 import { headers } from "next/headers";
 import { CalendarRange, Sparkles } from "lucide-react";
 import { auth } from "@/lib/auth";
-import MyBookingCard from "@/components/booking/MyBookingCard";
-import { Booking } from "@/types/booking";
 import { Studio } from "@/types/studio";
 import MyStudioCard from "@/components/cards/MyStudioCard";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
@@ -19,7 +17,7 @@ const MyStudiosPage = async () => {
   const token = await getTokenFromServer()
   try {
     if (user?.email) {
-      const res = await fetch(`http://localhost:8000/my-studios/${user.email}`,{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-studios/${user.email}`,{
         headers: {
           authorization: `Bearer ${token}`
         }

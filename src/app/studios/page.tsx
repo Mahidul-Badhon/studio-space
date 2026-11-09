@@ -1,13 +1,12 @@
 import StudiosExplorer, { Studio } from '@/components/cards/StudioExplorer';
-import React from 'react';
 
 
 const StudiosPage = async() => {
     let data: Studio[] = [];
 
     try {
-        const res = await fetch("http://localhost:8000/studios", {
-            cache: "no-store", // Ensures real-time data fetching
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/studios`, {
+            next: { revalidate: 60 }, // Ensures real-time data fetching
         });
         if (res.ok) {
             data = await res.json();

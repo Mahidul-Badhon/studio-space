@@ -141,7 +141,7 @@ const EditStudioDialog = ({ studio }: EditStudioProps) => {
 
     const token = await getTokenFromClient()
 
-      const response = await fetch(`http://localhost:8000/mystudios/${studio._id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mystudios/${studio._id}`, {
         method: "PATCH",
         headers: { 
           "Content-Type": "application/json",

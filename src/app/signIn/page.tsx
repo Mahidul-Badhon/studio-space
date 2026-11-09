@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { User, Mail, Image as ImageIcon, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Image as Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";

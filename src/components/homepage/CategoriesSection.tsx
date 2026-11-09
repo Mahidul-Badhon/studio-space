@@ -1,4 +1,4 @@
-import React from "react";
+
 import CategoriesCard, { CategoryItem } from "./CategoriesCard";
 import { Camera, Clapperboard, Mic2, Music, Palette } from "lucide-react";
 

@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast";
-import { error } from "console";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 
@@ -163,7 +162,7 @@ const AddStudioPage = () => {
 
     const token = await getTokenFromClient()
 
-    const response = await fetch("http://localhost:8000/add-studio", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",

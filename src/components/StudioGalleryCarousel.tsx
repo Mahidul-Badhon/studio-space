@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import {
   Carousel,
@@ -30,7 +29,7 @@ export default function StudioGalleryCarousel({ images, title }: StudioGalleryCa
         <CarouselContent className="-ml-2 md:-ml-4">
           {images.map((src, index) => (
             <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-2/3 lg:basis-3/4">
-              <div className="relative aspect-[16/9] md:aspect-[21/10] w-full rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 shadow-sm">
+              <div className="relative aspect-video md:aspect-21/10 w-full rounded-2xl md:rounded-3xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 shadow-sm">
                 <Image
                   src={src}
                   alt={`${title} photo ${index + 1}`}

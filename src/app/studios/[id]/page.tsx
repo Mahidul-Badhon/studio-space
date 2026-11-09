@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Link from 'next/link';
 import { 
   MapPin, 
@@ -22,7 +22,7 @@ const StudioDetailsPage = async({params}: {params: Promise<{id: string}>}) => {
         const token = await getTokenFromServer()
 
         try {
-             const res = await fetch(`http://localhost:8000/studios/${id}`,{
+             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/studios/${id}`,{
             headers:{
                 authorization: `Bearer ${token}`
             }

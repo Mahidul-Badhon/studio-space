@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Calendar, Clock, DollarSign, ShieldAlert } from "lucide-react";
+import { X, Calendar, Clock } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "../ui/toast";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
@@ -53,7 +53,7 @@ const BookingCard = ({ studio }: { studio: Studio }) => {
         console.log("Submitting booking data to database:", bookingData);
 
         const token = await getTokenFromClient()
-        const res = await fetch("http://localhost:8000/bookings", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",

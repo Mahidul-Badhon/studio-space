@@ -6,8 +6,8 @@ import Link from "next/link";
 const FeaturedSection = async () => {
     let data: Studio[] = []
     try {
-        const res = await fetch("http://localhost:8000/featured-studios", {
-            cache: "no-store", // Ensures real-time data fetching
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featured-studios`, {
+            next: { revalidate: 60 }, // Ensures real-time data fetching
         });
         if (res.ok) {
             data = await res.json();

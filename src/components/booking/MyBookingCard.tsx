@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { Calendar, Clock, DollarSign, XCircle, Building2 } from "lucide-react";
 import { Booking } from "@/types/booking";
@@ -16,7 +15,7 @@ interface MyBookingCardProps {
 const MyBookingCard = ({ booking }: MyBookingCardProps) => {
   const handleCancelBooking = async () => {
     const token = await getTokenFromClient()
-    const res = await fetch(`http://localhost:8000/mybookings/${booking._id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mybookings/${booking._id}`, {
       method: 'DELETE',
       headers:{
         authorization: `Bearer ${token}`

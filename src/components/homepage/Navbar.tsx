@@ -84,6 +84,7 @@ export function Navbar() {
             className={cn(
               "text-lg md:text-xl font-bold tracking-tight transition-colors",
               isTransparent ? "text-white" : "text-zinc-900 dark:text-white"
+              // "text-[rgba(38, 38, 38, 1)]"
             )}
           >
             StudioSpace
